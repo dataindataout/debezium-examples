@@ -2,11 +2,9 @@
 
 This demo automatically deploys the topology of services as defined in the [Debezium Tutorial](../tutorial) along with Debezium UI.  You can use the Debezium UI to view available connectors and create new connectors.
 
-
 ## Prerequisites
 
 The Debezium UI is only available with Debezium version 1.5 and above.
-
 
 ## Launching UI
 
@@ -27,15 +25,16 @@ Creating debezium-ui   ... done
 
 ```
 
-
-The Debezium UI will be available on http://localhost:8080
+The Debezium UI will be available on <http://localhost:8080>
 
 ## Create connectors via UI
 
 You can create Postgres, Mongo DB, MySQL & SQL Server (coming soon) connectors using the Debezium UI.  Create the connectors using the *Create connector* wizard in the Debezium UI.  The first two steps of the wizard are mandatory (i.e. selecting the "Connector type" in step 1, then entering the basic connection "Properties" in step 2).  Additional steps in the wizard allow you to configure a variety of optional properties for each connector type.
 
 For this demo, see the connection properties you can use for each connector type as illustrated below:
+
 ### MySQL
+
 **Topic Prefix**: inventory
 **Cluster ID**: 12345
 **Hostname**: db-mysql  
@@ -47,6 +46,7 @@ For this demo, see the connection properties you can use for each connector type
 ![MySQL Connnector](connMySQL.png)
 
 ### PostgreSQL
+
 **Topix prefix**: fulfillment
 **Hostname**: db-pg  
 **User**: postgres  
@@ -56,6 +56,7 @@ For this demo, see the connection properties you can use for each connector type
 ![PostgreSQL Connector](connPostgres.png)
 
 ### MongoDB
+
 **Topic prefix**: inventory_mongo
 **Hosts**: db-mongo:27017  
 **User**: admin  
@@ -64,31 +65,39 @@ For this demo, see the connection properties you can use for each connector type
 ![MongoDB Connector](connMongo.png)
 
 ## Command line clients
+
 After the connectors are registered and running, you can interact via cli to query and make changes to the dbs
 
 ### MySQL
+
 To connect with MySQL via cli:
+
 ```shell
 docker exec -it db-mysql bash -c 'mysql -u $MYSQL_USER -p$MYSQL_PASSWORD inventory'
 
 ```
 
 ### PostgreSQL
+
 To connect with PostgreSQL via cli:
+
 ```shell
 docker exec -it db-pg bash -c 'psql -U $POSTGRES_USER $POSTGRES_PASSWORD'
 
 ```
 
-### MongoDB
-To connect with MongoDB via cli:
-```shell
-mongo -u admin -p admin --authenticationDatabase admin localhost:37017/inventory
+### pgAdmin
 
-```
+Configure with the following in pgAdmin:
 
+name: name_it_whatever_you_want
+host: host.docker.internal
+database: postgres
+user: postgres
+password: postgres
 
 ## Examine the change events
+
 You can examine change events which occur due to database changes
 
 ```shell
@@ -101,9 +110,9 @@ docker exec -it kafka bash
 ```
 
 ## Stopping All Services
+
 When finished with the demo, stop all of the services.
 
 ```console
-$ docker-compose down
+docker-compose down
 ```
-
