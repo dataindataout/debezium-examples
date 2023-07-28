@@ -90,11 +90,13 @@ docker exec -it db-pg bash -c 'psql -U $POSTGRES_USER $POSTGRES_PASSWORD'
 
 Configure with the following in pgAdmin:
 
+```
 name: name_it_whatever_you_want
 host: host.docker.internal
 database: postgres
 user: postgres
 password: postgres
+```
 
 ## Examine the change events
 

@@ -32,7 +32,7 @@ services:
     ports:
       - "8081:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=valerie.parham.thompson@gmail.com
+      - PGADMIN_DEFAULT_EMAIL=whatever@none.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
     networks:
       - ui-network
