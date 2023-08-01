@@ -47,9 +47,10 @@ For this demo, see the connection properties you can use for each connector type
 
 ### PostgreSQL
 
-**Topix prefix**: fulfillment
+**Topic prefix**: fulfillment
 **Hostname**: db-pg  
-**User**: postgres  
+**Port**: 5432
+**User**: postgres
 **Password**: postgres  
 **Database**:postgres  
 
@@ -88,11 +89,19 @@ docker exec -it db-pg bash -c 'psql -U $POSTGRES_USER $POSTGRES_PASSWORD'
 
 ### pgAdmin
 
-Configure with the following in pgAdmin:
+Login with the following:
+
+```
+whatever@none.com
+postgres
+```
+
+Add new server and configure with the following:
 
 ```
 name: name_it_whatever_you_want
-host: host.docker.internal
+host: db-pg
+port: 5432
 database: postgres
 user: postgres
 password: postgres

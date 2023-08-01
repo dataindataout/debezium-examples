@@ -5,6 +5,7 @@ services:
     image: quay.io/debezium/zookeeper:${DEBEZIUM_VERSION}
     networks:
       - ui-network
+
   kafka:
     container_name: kafka
     image: quay.io/debezium/kafka:${DEBEZIUM_VERSION}
@@ -16,6 +17,7 @@ services:
       - ZOOKEEPER_CONNECT=zookeeper:2181
     networks:
       - ui-network
+
   db-pg:
     container_name: db-pg
     image: quay.io/debezium/example-postgres:${DEBEZIUM_VERSION}
@@ -26,27 +28,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     networks:
       - ui-network
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    ports:
-      - "8081:80"
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=whatever@none.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
-    networks:
-      - ui-network
-  db-mysql:
-    container_name: db-mysql
-    image: quay.io/debezium/example-mysql:${DEBEZIUM_VERSION}
-    ports:
-      - "63306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=debezium
-      - MYSQL_USER=mysqluser
-      - MYSQL_PASSWORD=mysql
-    networks:
-      - ui-network
+
   connect:
     container_name: connect
     platform: linux/arm64
@@ -67,6 +49,7 @@ services:
       - CONNECT_REST_EXTENSION_CLASSES=io.debezium.kcrestextension.DebeziumConnectRestExtension
     networks:
       - ui-network
+
   debezium-ui:
     container_name: debezium-ui
     image: quay.io/debezium/debezium-ui:${DEBEZIUM_VERSION}
@@ -78,6 +61,28 @@ services:
       - connect
     networks:
       - ui-network
+
+  pgadmin:
+    container_name: pgadmin-ui
+    image: dpage/pgadmin4
+    ports:
+      - "8081:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=whatever@none.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    networks:
+      - ui-network
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8082:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    networks:
+      - ui-network
+
 networks:
   ui-network:
     external: false
